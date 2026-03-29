@@ -38,6 +38,7 @@
                 radial-gradient(circle at top right, rgba(200, 16, 46, 0.2), transparent 25%),
                 linear-gradient(180deg, #06070a 0%, #0b0b0f 100%);
             color: var(--text);
+            overflow-x: hidden;
         }
 
         a {
@@ -64,14 +65,33 @@
             padding: 14px 22px;
             border-radius: 14px;
             font-weight: 700;
-            transition: 0.2s ease;
+            transition: 0.25s ease;
             border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -140%;
+            width: 70%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+            transform: skewX(-20deg);
+            transition: 0.6s ease;
+        }
+
+        .btn:hover::before {
+            left: 150%;
         }
 
         .btn-primary {
             background: linear-gradient(135deg, var(--red), var(--red-2));
             color: var(--white);
             box-shadow: 0 10px 24px rgba(200, 16, 46, 0.3);
+            animation: pulseGlow 2.8s infinite ease-in-out;
         }
 
         .btn-secondary {
@@ -81,7 +101,19 @@
         }
 
         .btn:hover {
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+        }
+
+        @keyframes pulseGlow {
+
+            0%,
+            100% {
+                box-shadow: 0 10px 24px rgba(200, 16, 46, 0.25);
+            }
+
+            50% {
+                box-shadow: 0 14px 34px rgba(200, 16, 46, 0.42);
+            }
         }
 
         header {
@@ -91,6 +123,13 @@
             backdrop-filter: blur(10px);
             background: rgba(8, 8, 12, 0.86);
             border-bottom: 1px solid var(--line);
+            transition: 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(8, 8, 12, 0.96);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+            border-bottom-color: rgba(255, 255, 255, 0.12);
         }
 
         .nav {
@@ -111,6 +150,14 @@
         .hero-logo {
             flex: 0 0 auto;
             filter: drop-shadow(0 10px 38px rgba(0, 0, 0, 0.35));
+            transition: transform 0.28s ease, filter 0.28s ease;
+        }
+
+        .brand:hover .logo,
+        .hero-logo:hover {
+            transform: scale(1.06) rotate(-2deg);
+            filter:
+                drop-shadow(0 10px 38px rgba(0, 0, 0, 0.35)) drop-shadow(0 0 16px rgba(200, 16, 46, 0.35));
         }
 
         .logo {
@@ -154,11 +201,32 @@
             color: var(--muted);
             font-weight: 700;
             font-size: 0.95rem;
+            position: relative;
+            transition: color 0.25s ease, transform 0.25s ease;
+        }
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--red), #ff8fa3);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.25s ease;
+            border-radius: 999px;
         }
 
         .nav-links a:hover,
         .nav-links a.active {
             color: var(--white);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            transform: scaleX(1);
         }
 
         .hero {
@@ -191,6 +259,14 @@
             background:
                 linear-gradient(90deg, rgba(5, 5, 8, 0.92) 0%, rgba(5, 5, 8, 0.66) 45%, rgba(5, 5, 8, 0.18) 100%),
                 url('images/parque_galateo.png') center/cover no-repeat;
+        }
+
+        .hero-copy::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 80% 20%, rgba(200, 16, 46, 0.18), transparent 30%);
+            pointer-events: none;
         }
 
         .eyebrow {
@@ -237,6 +313,13 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: var(--radius-sm);
             padding: 16px;
+            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .meta-box:hover {
+            transform: translateY(-4px);
+            border-color: rgba(200, 16, 46, 0.35);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
         }
 
         .meta-box span {
@@ -261,6 +344,12 @@
             background:
                 linear-gradient(180deg, rgba(200, 16, 46, 0.18), rgba(255, 255, 255, 0.03)),
                 linear-gradient(180deg, #111118, #0b0b0f);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hero-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 24px 44px rgba(0, 0, 0, 0.38);
         }
 
         .hero-logo-wrap {
@@ -283,6 +372,12 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 22px;
             padding: 24px;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .next-game-card:hover {
+            border-color: rgba(255, 143, 163, 0.35);
+            box-shadow: inset 0 0 0 1px rgba(255, 143, 163, 0.12);
         }
 
         .matchup {
@@ -315,6 +410,12 @@
             border: 1px solid rgba(255, 255, 255, 0.07);
             border-radius: var(--radius-sm);
             padding: 18px;
+            transition: transform 0.25s ease, border-color 0.25s ease;
+        }
+
+        .mini-stat:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 143, 163, 0.28);
         }
 
         .mini-stat strong {
@@ -358,6 +459,29 @@
             border-radius: 22px;
             overflow: hidden;
             box-shadow: var(--shadow);
+            transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+            position: relative;
+        }
+
+        .player-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, 0.08), transparent 70%);
+            transform: translateX(-130%);
+            transition: transform 0.7s ease;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .player-card:hover::before {
+            transform: translateX(130%);
+        }
+
+        .player-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 24px 40px rgba(0, 0, 0, 0.42), 0 0 0 1px rgba(200, 16, 46, 0.18);
+            border-color: rgba(255, 143, 163, 0.25);
         }
 
         .player-photo {
@@ -386,6 +510,11 @@
             position: relative;
             z-index: 1;
             filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.35));
+            transition: transform 0.28s ease;
+        }
+
+        .player-card:hover .avatar {
+            transform: translateY(-4px) scale(1.03);
         }
 
         .player-info {
@@ -401,6 +530,11 @@
             font-weight: 900;
             margin-bottom: 12px;
             font-size: 0.9rem;
+            box-shadow: 0 0 0 0 rgba(200, 16, 46, 0.5);
+        }
+
+        .player-card:hover .player-number {
+            box-shadow: 0 0 16px rgba(200, 16, 46, 0.35);
         }
 
         .player-info h3 {
@@ -427,6 +561,14 @@
             border: 1px solid var(--line);
             border-radius: var(--radius-md);
             box-shadow: var(--shadow);
+            transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+        }
+
+        .schedule-card:hover,
+        .stats-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 143, 163, 0.22);
+            box-shadow: 0 24px 40px rgba(0, 0, 0, 0.4);
         }
 
         .schedule-card,
@@ -463,6 +605,12 @@
             color: #ffd5dc;
             font-weight: 800;
             font-size: 0.82rem;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        tr:hover .result {
+            transform: scale(1.03);
+            box-shadow: 0 0 14px rgba(200, 16, 46, 0.22);
         }
 
         .stats-grid {
@@ -477,6 +625,13 @@
             border: 1px solid rgba(255, 255, 255, 0.07);
             border-radius: var(--radius-sm);
             padding: 18px;
+            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 143, 163, 0.24);
+            box-shadow: 0 16px 28px rgba(0, 0, 0, 0.2);
         }
 
         .stat-box span {
@@ -505,6 +660,28 @@
             text-align: center;
             font-weight: 900;
             color: #f7f7f9;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sponsor-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top, rgba(255, 143, 163, 0.16), transparent 55%);
+            opacity: 0;
+            transition: opacity 0.25s ease;
+            pointer-events: none;
+        }
+
+        .sponsor-card:hover::before {
+            opacity: 1;
+        }
+
+        .sponsor-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            border-color: rgba(255, 143, 163, 0.25);
+            box-shadow: 0 22px 34px rgba(0, 0, 0, 0.34);
         }
 
         .sponsor-card span {
@@ -560,6 +737,89 @@
 
         .footer-card li+li {
             margin-top: 8px;
+        }
+
+        .footer-card a {
+            position: relative;
+            transition: color 0.25s ease;
+        }
+
+        .footer-card a:hover {
+            color: #fff;
+        }
+
+        .footer-card a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -3px;
+            width: 100%;
+            height: 1px;
+            background: #ff8fa3;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.25s ease;
+        }
+
+        .footer-card a:hover::after {
+            transform: scaleX(1);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.75s ease, transform 0.75s ease;
+        }
+
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero-title,
+        .hero-text,
+        .hero-actions,
+        .hero-meta,
+        .hero-card {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: heroIn 0.8s ease forwards;
+        }
+
+        .hero-title {
+            animation-delay: 0.05s;
+        }
+
+        .hero-text {
+            animation-delay: 0.18s;
+        }
+
+        .hero-actions {
+            animation-delay: 0.3s;
+        }
+
+        .hero-meta {
+            animation-delay: 0.42s;
+        }
+
+        .hero-card {
+            animation-delay: 0.22s;
+            transform: translateX(28px);
+            animation-name: heroCardIn;
+        }
+
+        @keyframes heroIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes heroCardIn {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         @media (max-width: 1080px) {
@@ -618,30 +878,51 @@
                 display: none;
             }
         }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+                transition: none !important;
+                scroll-behavior: auto !important;
+            }
+
+            .reveal,
+            .hero-title,
+            .hero-text,
+            .hero-actions,
+            .hero-meta,
+            .hero-card {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        }
     </style>
 </head>
 
 <body>
     <header>
         <div class="container nav">
-    <a class="brand" href="#inicio">
-        <div class="logo">
-            <img src="images/bravos.png" alt="Logo Los Bravos">
-        </div>
-        <div class="brand-text">
-            <strong>Los Bravos de Galateo Centro</strong>
-            <span>Master Senior Baseball League</span>
-        </div>
-    </a>
+            <a class="brand" href="#inicio">
+                <div class="logo">
+                    <img src="images/bravos.png" alt="Logo Los Bravos">
+                </div>
+                <div class="brand-text">
+                    <strong>Los Bravos de Galateo Centro</strong>
+                    <span>Master Senior Baseball League</span>
+                </div>
+            </a>
 
-    <nav class="nav-links">
-        <a href="#inicio">Inicio</a>
-        <a href="#roster">Roster</a>
-        <a href="#proximo-juego">Próximo juego</a>
-        <a href="#estadísticas">Estadísticas</a>
-        <a href="#sponsors">Sponsors</a>
-    </nav>
-</div>
+            <nav class="nav-links">
+                <a class="active" href="#inicio">Inicio</a>
+                <a href="#roster">Roster</a>
+                <a href="#proximo-juego">Próximo juego</a>
+                <a href="#estadisticas">Estadísticas</a>
+                <a href="#sponsors">Sponsors</a>
+            </nav>
+        </div>
     </header>
 
     <main>
@@ -649,9 +930,9 @@
             <div class="container hero-grid">
                 <div class="hero-copy">
                     <div>
-                        <span class="eyebrow">Orgullo de Galateo Centro</span>
-                        <h1>Los Bravos de<br />Galateo Centro</h1>
-                        <p>
+                        <span class="eyebrow hero-title">Orgullo de Galateo Centro</span>
+                        <h1 class="hero-title">Los Bravos de<br />Galateo Centro</h1>
+                        <p class="hero-text">
                             Más que un equipo, una familia. Esta es la casa digital de Los Bravos,
                             con información básica del roster, próximo juego, estadísticas y nuestros auspiciadores.
                         </p>
@@ -701,7 +982,7 @@
                     <div class="mini-stats">
                         <div class="mini-stat">
                             <span class="muted">Récord</span>
-                            <strong>8-3</strong>
+                            <strong class="count-up" data-target="8">8</strong><strong>-3</strong>
                         </div>
                         <div class="mini-stat">
                             <span class="muted">Posición</span>
@@ -712,7 +993,7 @@
             </div>
         </section>
 
-        <section id="roster">
+        <section id="roster" class="reveal">
             <div class="container">
                 <div class="section-head">
                     <div>
@@ -727,15 +1008,15 @@
                     <article class="player-card">
                         <div class="player-photo">
                             <svg class="avatar" viewBox="0 0 160 170" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <ellipse cx="80" cy="58" rx="30" ry="34" fill="#d8a27c"/>
-                                <path d="M40 56c2-25 18-40 40-40s38 15 40 40l-10-2c-1-15-13-24-30-24s-29 9-30 24z" fill="#111"/>
-                                <path d="M40 52h80l-9-22H49z" fill="#0d0d12"/>
-                                <path d="M48 30h64l-4-7H52z" fill="#c8102e"/>
-                                <circle cx="80" cy="62" r="4" fill="#111"/>
-                                <path d="M65 98c9 8 21 8 30 0" stroke="#8f5238" stroke-width="4" fill="none" stroke-linecap="round"/>
-                                <path d="M36 170c2-38 20-56 44-56s42 18 44 56z" fill="#c8102e"/>
-                                <path d="M54 118h52v52H54z" fill="#111"/>
-                                <path d="M48 116h64l14 54H34z" fill="none" stroke="#fff" stroke-width="4"/>
+                                <ellipse cx="80" cy="58" rx="30" ry="34" fill="#d8a27c" />
+                                <path d="M40 56c2-25 18-40 40-40s38 15 40 40l-10-2c-1-15-13-24-30-24s-29 9-30 24z" fill="#111" />
+                                <path d="M40 52h80l-9-22H49z" fill="#0d0d12" />
+                                <path d="M48 30h64l-4-7H52z" fill="#c8102e" />
+                                <circle cx="80" cy="62" r="4" fill="#111" />
+                                <path d="M65 98c9 8 21 8 30 0" stroke="#8f5238" stroke-width="4" fill="none" stroke-linecap="round" />
+                                <path d="M36 170c2-38 20-56 44-56s42 18 44 56z" fill="#c8102e" />
+                                <path d="M54 118h52v52H54z" fill="#111" />
+                                <path d="M48 116h64l14 54H34z" fill="none" stroke="#fff" stroke-width="4" />
                             </svg>
                         </div>
                         <div class="player-info">
@@ -748,17 +1029,17 @@
                     <article class="player-card">
                         <div class="player-photo">
                             <svg class="avatar" viewBox="0 0 160 170" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <ellipse cx="80" cy="58" rx="30" ry="34" fill="#b97852"/>
-                                <path d="M40 55c4-27 20-39 40-39 22 0 35 13 40 39l-10-1c-4-12-16-23-30-23-14 0-26 8-30 23z" fill="#111"/>
-                                <path d="M39 52h82l-8-21H47z" fill="#13131a"/>
-                                <path d="M47 30h66l-5-8H52z" fill="#c8102e"/>
-                                <circle cx="70" cy="63" r="3.5" fill="#111"/>
-                                <circle cx="90" cy="63" r="3.5" fill="#111"/>
-                                <path d="M67 92c8 6 18 6 26 0" stroke="#6a3c2a" stroke-width="4" fill="none" stroke-linecap="round"/>
-                                <path d="M36 170c3-38 18-56 44-56 25 0 42 18 44 56z" fill="#111"/>
-                                <path d="M48 115h64l14 55H34z" fill="#c8102e"/>
-                                <path d="M56 120h48v50H56z" fill="#111"/>
-                                <path d="M48 115h64l14 55H34z" fill="none" stroke="#fff" stroke-width="4"/>
+                                <ellipse cx="80" cy="58" rx="30" ry="34" fill="#b97852" />
+                                <path d="M40 55c4-27 20-39 40-39 22 0 35 13 40 39l-10-1c-4-12-16-23-30-23-14 0-26 8-30 23z" fill="#111" />
+                                <path d="M39 52h82l-8-21H47z" fill="#13131a" />
+                                <path d="M47 30h66l-5-8H52z" fill="#c8102e" />
+                                <circle cx="70" cy="63" r="3.5" fill="#111" />
+                                <circle cx="90" cy="63" r="3.5" fill="#111" />
+                                <path d="M67 92c8 6 18 6 26 0" stroke="#6a3c2a" stroke-width="4" fill="none" stroke-linecap="round" />
+                                <path d="M36 170c3-38 18-56 44-56 25 0 42 18 44 56z" fill="#111" />
+                                <path d="M48 115h64l14 55H34z" fill="#c8102e" />
+                                <path d="M56 120h48v50H56z" fill="#111" />
+                                <path d="M48 115h64l14 55H34z" fill="none" stroke="#fff" stroke-width="4" />
                             </svg>
                         </div>
                         <div class="player-info">
@@ -771,16 +1052,16 @@
                     <article class="player-card">
                         <div class="player-photo">
                             <svg class="avatar" viewBox="0 0 160 170" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <ellipse cx="80" cy="58" rx="30" ry="34" fill="#f0be95"/>
-                                <path d="M40 57c2-25 18-42 40-42 20 0 37 14 40 42l-12-2c-2-16-13-26-28-26-17 0-27 10-29 26z" fill="#111"/>
-                                <path d="M39 52h82l-9-21H48z" fill="#15151d"/>
-                                <path d="M46 30h68l-6-8H52z" fill="#c8102e"/>
-                                <circle cx="69" cy="63" r="3.5" fill="#111"/>
-                                <circle cx="92" cy="63" r="3.5" fill="#111"/>
-                                <path d="M64 93c10 8 23 8 32 0" stroke="#9e6d4a" stroke-width="4" fill="none" stroke-linecap="round"/>
-                                <path d="M35 170c2-39 19-56 45-56 24 0 41 17 45 56z" fill="#c8102e"/>
-                                <path d="M48 115h64l14 55H34z" fill="none" stroke="#fff" stroke-width="4"/>
-                                <path d="M57 118h46v52H57z" fill="#111"/>
+                                <ellipse cx="80" cy="58" rx="30" ry="34" fill="#f0be95" />
+                                <path d="M40 57c2-25 18-42 40-42 20 0 37 14 40 42l-12-2c-2-16-13-26-28-26-17 0-27 10-29 26z" fill="#111" />
+                                <path d="M39 52h82l-9-21H48z" fill="#15151d" />
+                                <path d="M46 30h68l-6-8H52z" fill="#c8102e" />
+                                <circle cx="69" cy="63" r="3.5" fill="#111" />
+                                <circle cx="92" cy="63" r="3.5" fill="#111" />
+                                <path d="M64 93c10 8 23 8 32 0" stroke="#9e6d4a" stroke-width="4" fill="none" stroke-linecap="round" />
+                                <path d="M35 170c2-39 19-56 45-56 24 0 41 17 45 56z" fill="#c8102e" />
+                                <path d="M48 115h64l14 55H34z" fill="none" stroke="#fff" stroke-width="4" />
+                                <path d="M57 118h46v52H57z" fill="#111" />
                             </svg>
                         </div>
                         <div class="player-info">
@@ -793,17 +1074,17 @@
                     <article class="player-card">
                         <div class="player-photo">
                             <svg class="avatar" viewBox="0 0 160 170" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <ellipse cx="80" cy="58" rx="30" ry="34" fill="#c88a62"/>
-                                <path d="M39 57c3-28 20-41 41-41s38 15 40 41l-11-2c-2-15-13-24-29-24s-28 10-30 24z" fill="#111"/>
-                                <path d="M39 52h82l-9-22H48z" fill="#111217"/>
-                                <path d="M47 30h66l-6-8H53z" fill="#c8102e"/>
-                                <circle cx="70" cy="63" r="3.5" fill="#111"/>
-                                <circle cx="91" cy="63" r="3.5" fill="#111"/>
-                                <path d="M66 93c9 7 20 7 28 0" stroke="#845337" stroke-width="4" fill="none" stroke-linecap="round"/>
-                                <path d="M35 170c3-40 19-56 45-56s42 16 45 56z" fill="#111"/>
-                                <path d="M48 115h64l14 55H34z" fill="#c8102e"/>
-                                <path d="M56 119h48v51H56z" fill="#111"/>
-                                <path d="M48 115h64l14 55H34z" fill="none" stroke="#fff" stroke-width="4"/>
+                                <ellipse cx="80" cy="58" rx="30" ry="34" fill="#c88a62" />
+                                <path d="M39 57c3-28 20-41 41-41s38 15 40 41l-11-2c-2-15-13-24-29-24s-28 10-30 24z" fill="#111" />
+                                <path d="M39 52h82l-9-22H48z" fill="#111217" />
+                                <path d="M47 30h66l-6-8H53z" fill="#c8102e" />
+                                <circle cx="70" cy="63" r="3.5" fill="#111" />
+                                <circle cx="91" cy="63" r="3.5" fill="#111" />
+                                <path d="M66 93c9 7 20 7 28 0" stroke="#845337" stroke-width="4" fill="none" stroke-linecap="round" />
+                                <path d="M35 170c3-40 19-56 45-56s42 16 45 56z" fill="#111" />
+                                <path d="M48 115h64l14 55H34z" fill="#c8102e" />
+                                <path d="M56 119h48v51H56z" fill="#111" />
+                                <path d="M48 115h64l14 55H34z" fill="none" stroke="#fff" stroke-width="4" />
                             </svg>
                         </div>
                         <div class="player-info">
@@ -816,7 +1097,7 @@
             </div>
         </section>
 
-        <section>
+        <section class="reveal">
             <div class="container two-col">
                 <div class="schedule-card">
                     <div class="section-head" style="margin-bottom: 12px;">
@@ -870,26 +1151,26 @@
                     <div class="stats-grid">
                         <div class="stat-box">
                             <span>Promedio de bateo</span>
-                            <strong>.320</strong>
+                            <strong class="count-up" data-target="320">.320</strong>
                         </div>
                         <div class="stat-box">
                             <span>Jonrones</span>
-                            <strong>12</strong>
+                            <strong class="count-up" data-target="12">12</strong>
                         </div>
                         <div class="stat-box">
                             <span>Carreras impulsadas</span>
-                            <strong>45</strong>
+                            <strong class="count-up" data-target="45">45</strong>
                         </div>
                         <div class="stat-box">
                             <span>ERA</span>
-                            <strong>3.85</strong>
+                            <strong class="count-up era" data-target="385">3.85</strong>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="sponsors">
+        <section id="sponsors" class="reveal">
             <div class="container">
                 <div class="section-head">
                     <div>
@@ -910,7 +1191,7 @@
         </section>
     </main>
 
-    <footer id="footer">
+    <footer id="footer" class="reveal">
         <div class="container">
             <div class="footer-card">
                 <div>
@@ -951,7 +1232,104 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        const header = document.querySelector('header');
+        const revealItems = document.querySelectorAll('.reveal');
+        const navLinks = document.querySelectorAll('.nav-links a');
+        const sections = [...document.querySelectorAll('main section[id], footer[id]')];
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 16) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.14 });
+
+        revealItems.forEach(item => revealObserver.observe(item));
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                const id = '#' + entry.target.id;
+                navLinks.forEach(link => {
+                    link.classList.toggle('active', link.getAttribute('href') === id);
+                });
+            });
+        }, {
+            rootMargin: '-35% 0px -45% 0px',
+            threshold: 0.01
+        });
+
+        sections.forEach(section => sectionObserver.observe(section));
+
+        const counters = document.querySelectorAll('.count-up');
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                const el = entry.target;
+                const target = Number(el.dataset.target);
+
+                if (el.classList.contains('era')) {
+                    let start = 0;
+                    const end = target;
+                    const duration = 1200;
+                    const startTime = performance.now();
+
+                    const animate = (now) => {
+                        const progress = Math.min((now - startTime) / duration, 1);
+                        const value = Math.floor(progress * (end - start) + start);
+                        el.textContent = (value / 100).toFixed(2);
+                        if (progress < 1) requestAnimationFrame(animate);
+                    };
+
+                    requestAnimationFrame(animate);
+                } else if (target === 320 && el.textContent.trim().startsWith('.')) {
+                    let start = 0;
+                    const end = target;
+                    const duration = 1200;
+                    const startTime = performance.now();
+
+                    const animate = (now) => {
+                        const progress = Math.min((now - startTime) / duration, 1);
+                        const value = Math.floor(progress * (end - start) + start);
+                        el.textContent = '.' + String(value).padStart(3, '0');
+                        if (progress < 1) requestAnimationFrame(animate);
+                    };
+
+                    requestAnimationFrame(animate);
+                } else {
+                    let start = 0;
+                    const end = target;
+                    const duration = 1000;
+                    const startTime = performance.now();
+
+                    const animate = (now) => {
+                        const progress = Math.min((now - startTime) / duration, 1);
+                        const value = Math.floor(progress * (end - start) + start);
+                        el.textContent = value;
+                        if (progress < 1) requestAnimationFrame(animate);
+                    };
+
+                    requestAnimationFrame(animate);
+                }
+
+                counterObserver.unobserve(el);
+            });
+        }, { threshold: 0.5 });
+
+        counters.forEach(counter => counterObserver.observe(counter));
+    </script>
 </body>
 
 </html>
-
